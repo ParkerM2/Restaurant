@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Star Wars - Express</title>
+  <!-- Latest compiled and minified CSS & JS -->
+  <link rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://code.jquery.com/jquery.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+        <div class="card">
+          <div class="card-header">
+            <h3><strong>Reservations</strong></h3>
+          </div>
+          <div class="card-body">
+          <button id="view" class="btn btn-primary btn-md">show reservations</button>
+            <h2 id="name"></h2>
+            <div id="stats">
+              <h3><strong>Name:</strong> <span id="name"></span></h3>
+              <h3><strong>Id:</strong> <span id="idNumber"></span></h3>
+              <h3><strong>Phone Number:</strong> <span id="phoneNumber"></span></h3>
+              <h3><strong>Number of People:</strong> <span id="peopleNumber"></span></h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    $("#view").on("click", function() {
+      var searchedReservation = $("#view").val().trim();
+
+      // Using a RegEx Pattern to remove spaces from searchedCharacter
+      // You can read more about RegEx Patterns later https://www.regexbuddy.com/regex.html
+      searchedReservation = searchedReservation.replace(/\s+/g, "").toLowerCase();
+
+      $.get("/api/reservations/" + searchedReservation, function(data) {
+        console.table(data);
+        for (i=0;i < data.length; i++){
+        if (data) {
+          $("#stats").show();
+          $("#name").text(data[i].name);
+          $("#idNumber").text(data[i].idNumber);
+          $("#phoneNumber").text(data[i].phoneNumber);
+          $("#peopleNumber").text(data[i].peopleNumber);
+        } else {
+          $("#name").text("Reservation Not found");
+          $("#stats").hide();
+        }};
+      });
+    });
+
+  </script>
+</body>
+
+</html>

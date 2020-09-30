@@ -21,7 +21,7 @@
       <h1>Restaurant</h1>
       <h3>Book your seats before they are all gone!</h3>
       <hr>
-      <a href="/view"><button class="btn btn-danger btn-lg"><span class="fa fa-plus"></span>Vew tables</button></a>
+      <button id="view" class="btn btn-danger btn-lg"><span class="fa fa-plus"></span>View tables</button>
       <a href="/add"><button class="btn btn-danger btn-lg"><span
             class="fa fa-eye"></span> Make Reservation</button></a>
     </div>
@@ -39,8 +39,30 @@
         </div>
     </div>
 </div>
-     
-   
+<script type="text/javascript">
+    $("#view").on("click", function() {
+      var searchedReservation = $("#view").val().trim();
+
+      // Using a RegEx Pattern to remove spaces from searchedCharacter
+      // You can read more about RegEx Patterns later https://www.regexbuddy.com/regex.html
+      searchedReservation = searchedReservation.replace(/\s+/g, "").toLowerCase();
+
+      $.get("/api/reservations/" + searchedReservation, function(data) {
+        console.table(data);
+        for (i=0;i < data.length; i++){
+        if (data) {
+          $("#stats").show();
+          $("#name").text(data[i].name);
+          $("#idNumber").text(data[i].idNumber);
+          $("#phoneNumber").text(data[i].phoneNumber);
+          $("#peopleNumber").text(data[i].peopleNumber);
+        } else {
+          $("#name").text("Reservation Not found");
+          $("#stats").hide();
+        }};
+      });
+    });
+   </script>
   
   
 </body>

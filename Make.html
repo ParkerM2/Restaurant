@@ -49,7 +49,7 @@
             </form>
             <br>
             <div class="text-right">
-              <button type="submit" class="btn btn-primary btn-md" id="add-btn"><span class="fa fa-fire"></span> Reserve!</button>
+              <button type="submit" class="btn btn-primary btn-md" id="reserve"><span class="fa fa-fire"></span>Reserve!</button>
             </div>
           </div>
         </div>
@@ -57,5 +57,22 @@
       </div>
     </div>
   </div>
+  <script type="text/javascript">
+    $("#reserve").on("click", function(event) {
+        event.preventDefault();
+          var newReservation = {
+          name: $("#name").val().trim(),
+          idNumber: $("#idNumber").val().trim(),
+          peopleNumber: $("#peopleNumber").val().trim(),
+          phoneNumber: $("#phoneNumber").val().trim()
+        };
+     $.post("/api/reservations", newReservation)
+        .then(function(data) {
+          console.log("add.html", data);
+          alert("Adding Reservation...");
+        });
+    });
+
+  </script>
   </body>
   </html>
