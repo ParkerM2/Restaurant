@@ -32,6 +32,10 @@ app.get("/", function(req, res) {
   res.sendFile(path.join(__dirname, "Home.html"));
 });
 
+app.get("/view", function(req, res) {
+  res.sendFile(path.join(__dirname, "View.html"));
+});
+
 app.get("/add", function(req, res) {
   res.sendFile(path.join(__dirname, "Make.html"));
 });
@@ -43,7 +47,7 @@ app.get("/api/reservations", function(req, res) {
 
 // Displays a single character, or returns false
 app.get("/api/reservations/:reservation", function(req, res) {
-  var chosen = req.params.character;
+  var chosen = req.params.reservation;
 
   console.log(chosen);
 
